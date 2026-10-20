@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>版本历史</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter,'Noto Sans SC',system-ui,sans-serif;color:#18181B;background:#F7F7F5}
+a{color:#3B5BDB}a:hover{color:#2F4AB8}
+button,input,select,textarea{font-family:inherit}
+</style>
+</helmet>
+<div style="min-height: 900px; display: flex; flex-direction: column; background: #F7F7F5; font-size: 14px">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 24px; background: #FFFFFF; border-bottom: 1px solid #E7E7E4">
+    <a href="Editor.dc.html" style="height: 40px; display: flex; align-items: center; color: #3F3F46; text-decoration: none">← 返回编辑</a>
+    <div style="width: 1px; height: 20px; background: #E7E7E4"></div>
+    <div style="font-weight: 600; font-size: 16px">周报生成器 · 版本历史</div>
+    <div style="margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px">
+      <label style="display: flex; align-items: center; gap: 6px">对比
+        <select style="height: 40px; border: 1px solid #DCDCD8; border-radius: 10px; padding: 0 10px; background: #FFFFFF"><option>v3</option></select></label>
+      <span>→</span>
+      <select aria-label="对比目标版本" style="height: 40px; border: 1px solid #DCDCD8; border-radius: 10px; padding: 0 10px; background: #FFFFFF"><option>v4（当前）</option></select>
+      <button style="height: 40px; padding: 0 16px; border: 1px solid #DCDCD8; border-radius: 10px; background: #FFFFFF; cursor: pointer">将 v3 设为推荐版本</button>
+      <button style="height: 40px; padding: 0 16px; border: none; border-radius: 10px; background: #18181B; color: #FFFFFF; font-weight: 600; cursor: pointer">恢复 v3 为新版本</button>
+    </div>
+  </header>
+
+  <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 20px; padding: 20px 24px">
+    <ol aria-label="版本列表" style="flex: 1 1 280px; min-width: 0; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+      <sc-for list="{{versions}}" as="v" hint-placeholder-count="5">
+        <li style="padding: 14px 16px; border-radius: 12px; background: #FFFFFF; border: 1px solid {{v.border}}; display: flex; flex-direction: column; gap: 4px">
+          <div style="display: flex; justify-content: space-between; align-items: center">
+            <span style="font-weight: 700">{{v.name}}</span>
+            <span style="font-size: 12px; color: #63636B">{{v.time}}</span>
+          </div>
+          <div style="font-size: 13px; color: #3F3F46">{{v.note}}</div>
+          <div style="font-size: 12px; color: #63636B">{{v.stat}}</div>
+        </li>
+      </sc-for>
+      <li style="padding: 8px 4px; font-size: 12px; color: #63636B; line-height: 1.6">每次点击「保存」生成一个新版本；「★ 推荐版本」是插件和快捷词默认使用的版本，可以先改新版、验证好用后再设为推荐。恢复旧版本不会覆盖历史，而是生成新版本。</li>
+    </ol>
+
+    <section aria-label="差异对比" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E7E7E4; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column">
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 12px 16px; border-bottom: 1px solid #E7E7E4; background: #FAFAF9; font-size: 13px">
+        <span style="font-weight: 600">v3 → v4</span>
+        <span style="color: #166534">+2 行</span>
+        <span style="color: #991B1B">−1 行</span>
+        <div role="group" aria-label="对比模式" style="margin-left: auto; display: flex; border: 1px solid #DCDCD8; border-radius: 8px; overflow: hidden">
+          <button style="height: 32px; padding: 0 12px; border: none; background: #F1F1EF; font-size: 12px; cursor: pointer">行内</button>
+          <button style="height: 32px; padding: 0 12px; border: none; background: #FFFFFF; font-size: 12px; cursor: pointer">左右并排</button>
+        </div>
+      </div>
+      <div style="font-family: ui-monospace, 'Noto Sans SC', monospace; font-size: 14px; line-height: 2">
+        <div style="display: flex; padding: 0 16px"><span style="width: 28px; color: #A1A1AA">1</span><span>你是一位擅长总结的职场写作助手。</span></div>
+        <div style="display: flex; padding: 0 16px"><span style="width: 28px; color: #A1A1AA">2</span><span>请根据以下本周工作要点，为 {{t.name}} 撰写一份 {{t.style}} 风格的周报。</span></div>
+        <div style="display: flex; padding: 0 16px"><span style="width: 28px; color: #A1A1AA">3</span><span>工作要点：</span></div>
+        <div style="display: flex; padding: 0 16px"><span style="width: 28px; color: #A1A1AA">4</span><span>{{t.points}}</span></div>
+        <div style="display: flex; padding: 0 16px"><span style="width: 28px; color: #A1A1AA">5</span><span>要求：</span></div>
+        <div style="display: flex; padding: 0 16px"><span style="width: 28px; color: #A1A1AA">6</span><span>1. 分为「本周完成」「问题与风险」「下周计划」三部分</span></div>
+        <div style="display: flex; padding: 0 16px; background: #FEE2E2; color: #991B1B"><span style="width: 28px">−</span><span>2. 语言简洁</span></div>
+        <div style="display: flex; padding: 0 16px; background: #DCFCE7; color: #166534"><span style="width: 28px">+</span><span>2. 每部分不超过 5 条，语言简洁</span></div>
+        <div style="display: flex; padding: 0 16px; background: #DCFCE7; color: #166534"><span style="width: 28px">+</span><span>3. 尽量量化成果，突出业务价值</span></div>
+      </div>
+      <div style="margin-top: auto; padding: 14px 16px; border-top: 1px solid #E7E7E4; font-size: 13px; color: #63636B">v4 修改说明：增加量化要求 · 由 我 保存于 2 小时前</div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var vs = [
+      { name: 'v4 · 最新 · ★ 推荐', time: '2 小时前', note: '增加量化要求', stat: '+2 −1 行 · 使用 6 次 · 好用 6 / 不好用 0', sel: false },
+      { name: 'v3', time: '10 月 15 日', note: '改为三段式结构', stat: '+3 −2 行 · 使用 18 次 · 好用 14 / 不好用 2', sel: true },
+      { name: 'v2', time: '10 月 9 日', note: '新增「风格」变量', stat: '+1 −1 行 · 使用 9 次 · 好用 5 / 不好用 0', sel: false },
+      { name: 'v1', time: '9 月 30 日', note: '初始版本', stat: '创建 · 使用 3 次', sel: false }
+    ];
+    return {
+      versions: vs.map(function (v) { return Object.assign({}, v, { border: v.sel ? '#3B5BDB' : '#E7E7E4' }); }),
+      t: { name: '{{姓名}}', style: '{{风格}}', points: '{{工作要点}}' }
+    };
+  }
+}
+</script>
+</body>
+</html>
