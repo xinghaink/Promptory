@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { ConfirmButton } from '@/components/ConfirmButton';
+import { IS_EXTENSION } from '@/lib/platform';
 import { repo } from '@/lib/repo';
 import type { LibraryData } from './data';
 import { go, navHash, type Nav } from './route';
@@ -102,19 +104,16 @@ export function Sidebar({ data, nav, onOpenTransfer }: Props) {
                 <button className="link-btn" aria-label={`重命名文件夹 ${f.name}`} onClick={() => setRenaming(f.id)}>
                   重命名
                 </button>
-                <button
-                  className="link-btn"
-                  style={{ color: 'var(--bad-text)' }}
-                  aria-label={`删除文件夹 ${f.name}`}
-                  onClick={async () => {
-                    if (confirm(`删除文件夹「${f.name}」？其中的提示词会保留，变为未分类。`)) {
-                      await repo.deleteFolder(f.id);
-                      if (same(nav, { kind: 'folder', id: f.id })) go('/');
-                    }
+                <ConfirmButton
+                  className="link-btn link-danger"
+                  ariaLabel={`删除文件夹 ${f.name}（提示词会保留）`}
+                  label="删除"
+                  confirmLabel="确认？"
+                  onConfirm={async () => {
+                    await repo.deleteFolder(f.id);
+                    if (same(nav, { kind: 'folder', id: f.id })) go('/');
                   }}
-                >
-                  删除
-                </button>
+                />
               </span>
               <span className="count">{counts.byFolder.get(f.id) ?? 0}</span>
             </div>
@@ -157,10 +156,17 @@ export function Sidebar({ data, nav, onOpenTransfer }: Props) {
       )}
 
       <div className="sidebar-foot">
-        <div className="ext-card">
-          <b>在 AI 网站中使用</b>
-          <span>在输入框输入 / 或按 Alt+P 唤起；选中文字右键可保存</span>
-        </div>
+        {IS_EXTENSION ? (
+          <div className="ext-card">
+            <b>在 AI 网站中使用</b>
+            <span>在输入框输入 / 或按 Alt+P 唤起；选中文字右键可保存</span>
+          </div>
+        ) : (
+          <div className="ext-card">
+            <b>网页版</b>
+            <span>数据保存在当前浏览器。安装 Promptory 浏览器插件后，可在 AI 网站输入 / 直接调用（插件与网页版数据分开保存，可用导入导出迁移）</span>
+          </div>
+        )}
         <button className="nav-item" onClick={onOpenTransfer}>
           导入 / 导出
         </button>

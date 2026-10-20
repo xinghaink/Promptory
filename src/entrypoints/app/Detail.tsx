@@ -1,4 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks';
+import { ConfirmButton } from '@/components/ConfirmButton';
 import { Highlighted } from '@/components/Highlighted';
 import { copyText } from '@/lib/clipboard';
 import { feedbackText, relativeTime } from '@/lib/format';
@@ -47,14 +48,12 @@ export function Detail({ prompt: p, data, onUse, toast }: Props) {
         <div className="detail-actions">
           {trashed ? (
             <>
-              <button
+              <ConfirmButton
                 className="btn btn-danger"
-                onClick={async () => {
-                  if (confirm(`彻底删除「${p.title}」及其全部版本？此操作无法撤销。`)) await repo.purge(p.id);
-                }}
-              >
-                彻底删除
-              </button>
+                label="彻底删除"
+                confirmLabel="再点一次确认（无法撤销）"
+                onConfirm={() => repo.purge(p.id)}
+              />
               <button className="btn btn-primary" onClick={() => repo.restoreFromTrash(p.id).then(() => toast('已恢复'))}>
                 恢复
               </button>
@@ -67,7 +66,7 @@ export function Detail({ prompt: p, data, onUse, toast }: Props) {
                 aria-pressed={p.isFavorite}
                 onClick={() => repo.updateMeta(p.id, { isFavorite: !p.isFavorite })}
               >
-                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill={p.isFavorite ? '#f59e0b' : 'none'} stroke={p.isFavorite ? '#b45309' : '#63636b'} strokeWidth="1.3">
+                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill={p.isFavorite ? 'var(--star-fill)' : 'none'} stroke={p.isFavorite ? 'var(--star)' : 'var(--muted)'} strokeWidth="1.3">
                   <path d="M8 1.8l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.6l-3.8 2 .7-4.3-3.1-3 4.3-.6z" />
                 </svg>
               </button>

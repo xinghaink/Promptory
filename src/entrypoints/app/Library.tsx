@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { IS_EXTENSION } from '@/lib/platform';
 import { searchPrompts } from '@/lib/search';
 import { MODEL_CHOICES, type Prompt } from '@/lib/types';
 import { relativeTime } from '@/lib/format';
@@ -126,9 +127,19 @@ export function Library({ data, nav, welcome, onUse, onOpenPalette, onOpenTransf
           <div className="notice notice-info" style={{ margin: '16px 16px 0', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
             <div style={{ flex: 1 }}>
               <b>欢迎使用 Promptory！</b>已为你准备了 3 个示例提示词。试试这样用：
-              <br />① 打开 ChatGPT、Claude、DeepSeek 等网站，在输入框里输入 <b>/zb</b>，填写变量后回车插入；
-              <br />② 在任意网页选中一段提示词，右键「保存到 Promptory」；
-              <br />③ 在这里按 <b>⌘K</b> 搜索，或直接 <b>⌘V</b> 粘贴来新建。
+              {IS_EXTENSION ? (
+                <>
+                  <br />① 打开 ChatGPT、Claude、DeepSeek 等网站，在输入框里输入 <b>/zb</b>，填写变量后回车插入；
+                  <br />② 在任意网页选中一段提示词，右键「保存到 Promptory」；
+                  <br />③ 在这里按 <b>⌘K</b> 搜索，或直接 <b>⌘V</b> 粘贴来新建。
+                </>
+              ) : (
+                <>
+                  <br />① 选中「周报生成器」，点「使用」，填写变量后复制，或复制并打开 AI 网站；
+                  <br />② 点「编辑」修改内容，保存后在「版本历史」里对比和恢复；
+                  <br />③ 按 <b>⌘K</b>（Windows 为 Ctrl+K）搜索，或在页面空白处 <b>⌘V</b> 粘贴来新建。
+                </>
+              )}
             </div>
             <button className="btn btn-sm btn-ghost" aria-label="关闭欢迎提示" onClick={() => setShowWelcome(false)}>
               ×
@@ -181,7 +192,7 @@ export function Library({ data, nav, welcome, onUse, onOpenPalette, onOpenTransf
                   >
                     <div className="card-title">
                       <span>
-                        {p.isFavorite && <span aria-label="已收藏" style={{ color: '#b45309' }}>★ </span>}
+                        {p.isFavorite && <span aria-label="已收藏" style={{ color: 'var(--star)' }}>★ </span>}
                         {p.title}
                       </span>
                       <span className="time">{relativeTime(nav.kind === 'recent' ? p.lastUsedAt : p.updatedAt)}</span>

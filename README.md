@@ -12,6 +12,12 @@
 
 所有数据存在浏览器本地（IndexedDB），不需要账号。
 
+## 网页版
+
+管理界面也可以作为独立网站使用（`npm run build:web`，产物在 `dist-web/`，可部署到任意静态托管）。网页版包含提示词库、编辑、版本历史、使用（复制或复制并打开 AI 网站）、⌘K 搜索、粘贴新建和导入导出；在 AI 网站内 `/` 唤起和右键收藏需要安装插件。网页版和插件的数据分别保存在各自的存储中，可以通过导入导出迁移。
+
+在线预览：https://claude.ai/artifact/6n8HBnWcE3aM19Y47anQ2w
+
 ## 开发
 
 ```bash
@@ -22,6 +28,9 @@ npm run zip        # 打包用于发布
 npm run compile    # TypeScript 类型检查
 npm test           # 单元测试（Vitest）
 npm run e2e        # 端到端冒烟测试：先 npm run build，需要本机有 Chromium（可用 CHROME_PATH 指定）
+npm run dev:web    # 网页版开发服务器
+npm run build:web  # 构建网页版到 dist-web/
+npm run e2e:web    # 网页版冒烟测试：先 npm run build:web
 ```
 
 手动安装：`npm run build` 后，在 `chrome://extensions` 打开「开发者模式」，选择「加载已解压的扩展程序」，指向 `.output/chrome-mv3`。
@@ -35,6 +44,7 @@ src/
     ai.content/          AI 网站内的 / 面板（Shadow DOM 隔离样式）
     app/                 管理页（提示词库、编辑、版本历史、使用、⌘K、导入导出）
     capture/             右键收藏弹出的保存窗口
+web/                     网页版入口（复用 app/ 的界面）
   components/            管理页和收藏窗口共用的组件
   lib/                   数据模型、变量模板、搜索、差异对比、导入导出、收藏规则
 e2e/smoke.mjs            加载构建产物，用本地替身页面模拟 AI 网站的端到端测试

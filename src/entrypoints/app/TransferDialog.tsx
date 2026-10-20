@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { copyText } from '@/lib/clipboard';
 import { db } from '@/lib/db';
 import { repo } from '@/lib/repo';
 import { exportBackup, exportMarkdown, importItems, parseImport, type ImportItem } from '@/lib/transfer';
@@ -99,6 +100,15 @@ export function TransferDialog({ onClose, toast }: Props) {
             </button>
             <button className="btn" onClick={async () => download(`promptory-${stamp()}.md`, await exportMarkdown(db), 'text/markdown')}>
               导出 Markdown
+            </button>
+            <button
+              className="btn"
+              onClick={async () => {
+                await copyText(JSON.stringify(await exportBackup(db)));
+                toast('已复制 JSON 备份，可粘贴保存为 .json 文件');
+              }}
+            >
+              复制 JSON 备份
             </button>
           </div>
         </div>

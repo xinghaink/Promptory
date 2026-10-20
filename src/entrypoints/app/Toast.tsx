@@ -42,7 +42,7 @@ export function FeedbackBar({ pending, onAnswer, onDismiss }: FeedbackProps) {
       <button className="btn btn-sm" onClick={() => onAnswer(false)}>
         不好用
       </button>
-      <button className="btn btn-sm btn-ghost" style={{ color: '#fff' }} aria-label="关闭反馈" onClick={onDismiss}>
+      <button className="btn btn-sm btn-ghost" style={{ color: 'var(--toast-fg)' }} aria-label="关闭反馈" onClick={onDismiss}>
         ×
       </button>
     </div>

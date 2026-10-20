@@ -66,10 +66,9 @@ export function UseDialog({ id, initialVersion, onClose, onUsed }: Props) {
   const missing = parseTemplate(output).filter((s) => s.kind === 'var').length;
   const usedValues = Object.fromEntries(version.variables.map((v) => [v.name, values[v.name] ?? '']));
 
-  async function finish(openUrl?: string) {
+  async function finish() {
     if (!prompt || !version) return;
     await copyText(output);
-    if (openUrl) window.open(openUrl, '_blank', 'noopener');
     await repo.recordUse(prompt.id, version.number, usedValues, remember);
     onUsed({ id: prompt.id, version: version.number, title: prompt.title });
     onClose();
@@ -139,19 +138,17 @@ export function UseDialog({ id, initialVersion, onClose, onUsed }: Props) {
         <div className="dialog-foot">
           <span className="small muted">⌘↵ 复制 · Esc 关闭 · 使用后可在页面底部反馈「好用 / 不好用」</span>
           <span className="spacer" />
-          <select
-            className="select"
-            aria-label="复制并打开 AI 网站"
-            value=""
-            onChange={(e) => e.target.value && void finish(e.target.value)}
-          >
-            <option value="">复制并打开…</option>
-            {OPENABLE_SITES.map((s) => (
-              <option key={s.url} value={s.url}>
-                {s.name}
-              </option>
-            ))}
-          </select>
+          {/* Real links, so opening the site works wherever pop-ups are blocked. */}
+          <details className="menu">
+            <summary className="btn">复制并打开…</summary>
+            <div className="menu-list">
+              {OPENABLE_SITES.map((s) => (
+                <a key={s.url} href={s.url} target="_blank" rel="noreferrer" onClick={() => void finish()}>
+                  {s.name}
+                </a>
+              ))}
+            </div>
+          </details>
           <button className="btn btn-primary" style={{ height: 44 }} onClick={() => void finish()}>
             复制到剪贴板
           </button>
