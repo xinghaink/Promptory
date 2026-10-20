@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>编辑提示词</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter,'Noto Sans SC',system-ui,sans-serif;color:#18181B;background:#F7F7F5}
+a{color:#3B5BDB}a:hover{color:#2F4AB8}
+button,input,select,textarea{font-family:inherit}
+</style>
+</helmet>
+<div style="min-height: 900px; display: flex; flex-direction: column; background: #F7F7F5; font-size: 14px">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 24px; background: #FFFFFF; border-bottom: 1px solid #E7E7E4">
+    <a href="Main.dc.html" style="height: 40px; display: flex; align-items: center; color: #3F3F46; text-decoration: none">← 返回提示词库</a>
+    <div style="width: 1px; height: 20px; background: #E7E7E4"></div>
+    <div style="font-weight: 600; font-size: 16px">周报生成器</div>
+    <span style="font-size: 12px; color: #166534; background: #DCFCE7; padding: 3px 8px; border-radius: 6px">已自动保存草稿</span>
+    <div style="margin-left: auto; display: flex; flex-wrap: wrap; gap: 8px">
+      <a href="History.dc.html" style="height: 40px; padding: 0 14px; border: 1px solid #DCDCD8; border-radius: 10px; color: #18181B; text-decoration: none; display: flex; align-items: center; background: #FFFFFF">版本历史</a>
+      <button style="height: 40px; padding: 0 14px; border: 1px solid #DCDCD8; border-radius: 10px; background: #FFFFFF; font-size: 14px; cursor: pointer">测试运行（P1）</button>
+      <button style="height: 40px; padding: 0 18px; border: none; border-radius: 10px; background: #3B5BDB; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer">保存为 v5</button>
+    </div>
+  </header>
+
+  <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 20px; padding: 20px 24px">
+    <section aria-label="内容编辑" style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <label style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; font-weight: 600; color: #63636B">标题</span>
+        <input value="周报生成器" style="height: 44px; padding: 0 14px; border: 1px solid #DCDCD8; border-radius: 10px; font-size: 18px; font-weight: 600; background: #FFFFFF">
+      </label>
+      <div style="flex: 1; display: flex; flex-direction: column; border: 1px solid #DCDCD8; border-radius: 12px; background: #FFFFFF; overflow: hidden">
+        <div role="toolbar" aria-label="编辑工具" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 8px; border-bottom: 1px solid #E7E7E4; background: #FAFAF9">
+          <button style="height: 34px; padding: 0 12px; border: 1px solid #F3D88B; border-radius: 8px; background: #FEF3C7; color: #854D0E; font-size: 13px; font-weight: 600; cursor: pointer">插入变量 {{t.braces}}</button>
+          <button style="height: 34px; padding: 0 12px; border: none; border-radius: 8px; background: transparent; font-size: 13px; cursor: pointer">插入片段</button>
+          <button style="height: 34px; padding: 0 12px; border: none; border-radius: 8px; background: transparent; font-size: 13px; cursor: pointer">Markdown 预览</button>
+          <span style="margin-left: auto; align-self: center; font-size: 12px; color: #63636B; padding-right: 8px">218 字 · 约 160 tokens</span>
+        </div>
+        <div style="display: flex; flex: 1; font-family: ui-monospace, 'Noto Sans SC', monospace; font-size: 14px; line-height: 2">
+          <div aria-hidden="true" style="padding: 16px 10px; text-align: right; color: #A1A1AA; background: #FAFAF9; border-right: 1px solid #EFEFEC; user-select: none">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+          <div style="padding: 16px 20px; color: #27272A; min-width: 0">
+            <div>你是一位擅长总结的职场写作助手。</div>
+            <div>请根据以下本周工作要点，为 <span style="background: #FEF3C7; color: #854D0E; border-radius: 4px; padding: 1px 4px">{{t.name}}</span> 撰写一份 <span style="background: #FEF3C7; color: #854D0E; border-radius: 4px; padding: 1px 4px">{{t.style}}</span> 风格的周报。</div>
+            <div>工作要点：</div>
+            <div><span style="background: #FEF3C7; color: #854D0E; border-radius: 4px; padding: 1px 4px">{{t.points}}</span></div>
+            <div>要求：</div>
+            <div>1. 分为「本周完成」「问题与风险」「下周计划」三部分</div>
+            <div>2. 每部分不超过 5 条，语言简洁</div>
+            <div>3. 尽量量化成果，突出业务价值<span style="display: inline-block; width: 2px; height: 18px; background: #3B5BDB; vertical-align: middle; margin-left: 1px"></span></div>
+            <div style="color: #A1A1AA">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size: 12px; color: #63636B">提示：输入 {{t.braces}} 自动识别为变量；⌘S 保存新版本，⌘Enter 填写变量并使用。</div>
+    </section>
+
+    <aside aria-label="属性面板" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <div style="padding: 16px; background: #FFFFFF; border: 1px solid #E7E7E4; border-radius: 12px; display: flex; flex-direction: column; gap: 12px">
+        <div style="font-weight: 600">基本信息</div>
+        <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; color: #63636B">描述</span>
+          <textarea rows="2" style="padding: 10px 12px; border: 1px solid #DCDCD8; border-radius: 8px; font-size: 13px; resize: none">根据本周工作要点生成三段式结构化周报</textarea></label>
+        <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; color: #63636B">文件夹</span>
+          <select style="height: 40px; padding: 0 10px; border: 1px solid #DCDCD8; border-radius: 8px; background: #FFFFFF; font-size: 13px"><option>写作助手</option></select></label>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; color: #63636B">标签</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; padding: 8px; border: 1px solid #DCDCD8; border-radius: 8px">
+            <span style="padding: 3px 8px; border-radius: 6px; background: #F1F1EF; font-size: 12px">#职场 ×</span>
+            <span style="padding: 3px 8px; border-radius: 6px; background: #F1F1EF; font-size: 12px">#结构化输出 ×</span>
+            <input aria-label="添加标签" placeholder="添加标签…" style="border: none; font-size: 12px; outline: none; min-width: 60px; flex: 1">
+          </div></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; color: #63636B">适用模型</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <button style="height: 32px; padding: 0 10px; border: 1px solid #3B5BDB; border-radius: 8px; background: #EEF1FC; color: #2F4AB8; font-size: 12px; cursor: pointer">Claude</button>
+            <button style="height: 32px; padding: 0 10px; border: 1px solid #3B5BDB; border-radius: 8px; background: #EEF1FC; color: #2F4AB8; font-size: 12px; cursor: pointer">GPT</button>
+            <button style="height: 32px; padding: 0 10px; border: 1px solid #DCDCD8; border-radius: 8px; background: #FFFFFF; font-size: 12px; cursor: pointer">Gemini</button>
+            <button style="height: 32px; padding: 0 10px; border: 1px solid #DCDCD8; border-radius: 8px; background: #FFFFFF; font-size: 12px; cursor: pointer">通用</button>
+          </div></div>
+      </div>
+
+      <div style="padding: 16px; background: #FFFFFF; border: 1px solid #E7E7E4; border-radius: 12px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 600">变量（自动识别 3 个）</span><span style="font-size: 12px; color: #63636B">可设类型与默认值</span></div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; font-size: 12px; color: #63636B; padding: 0 2px"><span>变量名</span><span>类型</span><span>默认值 / 选项</span></div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; align-items: center; font-size: 13px">
+          <span style="font-weight: 600; color: #854D0E">姓名</span>
+          <select aria-label="姓名的类型" style="height: 34px; border: 1px solid #DCDCD8; border-radius: 6px; background: #FFFFFF; font-size: 12px"><option>单行文本</option></select>
+          <input aria-label="姓名的默认值" value="小王" style="height: 32px; padding: 0 8px; border: 1px solid #DCDCD8; border-radius: 6px; font-size: 12px; min-width: 0">
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; align-items: center; font-size: 13px">
+          <span style="font-weight: 600; color: #854D0E">风格</span>
+          <select aria-label="风格的类型" style="height: 34px; border: 1px solid #DCDCD8; border-radius: 6px; background: #FFFFFF; font-size: 12px"><option>下拉选项</option></select>
+          <input aria-label="风格的选项" value="简洁,正式,活泼" style="height: 32px; padding: 0 8px; border: 1px solid #DCDCD8; border-radius: 6px; font-size: 12px; min-width: 0">
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; align-items: center; font-size: 13px">
+          <span style="font-weight: 600; color: #854D0E">工作要点</span>
+          <select aria-label="工作要点的类型" style="height: 34px; border: 1px solid #DCDCD8; border-radius: 6px; background: #FFFFFF; font-size: 12px"><option>多行文本</option></select>
+          <input aria-label="工作要点的默认值" placeholder="无" style="height: 32px; padding: 0 8px; border: 1px solid #DCDCD8; border-radius: 6px; font-size: 12px; min-width: 0">
+        </div>
+      </div>
+
+      <div style="padding: 16px; background: #FFFFFF; border: 1px solid #E7E7E4; border-radius: 12px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 600">内置变量</span><span style="font-size: 12px; color: #63636B">使用时自动填充，无需手填</span></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px">
+          <button style="height: 32px; padding: 0 10px; border: 1px solid #BFDBFE; border-radius: 8px; background: #EFF6FF; color: #1E40AF; cursor: pointer">{{t.clip}} 剪贴板</button>
+          <button style="height: 32px; padding: 0 10px; border: 1px solid #BFDBFE; border-radius: 8px; background: #EFF6FF; color: #1E40AF; cursor: pointer">{{t.sel}} 网页选中文本</button>
+          <button style="height: 32px; padding: 0 10px; border: 1px solid #BFDBFE; border-radius: 8px; background: #EFF6FF; color: #1E40AF; cursor: pointer">{{t.today}} 今天日期</button>
+          <button style="height: 32px; padding: 0 10px; border: 1px solid #BFDBFE; border-radius: 8px; background: #EFF6FF; color: #1E40AF; cursor: pointer">{{t.snip}} 引用片段</button>
+        </div>
+      </div>
+
+      <label style="padding: 16px; background: #FFFFFF; border: 1px solid #E7E7E4; border-radius: 12px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-weight: 600">快捷词（在 AI 网站输入 / 后可直接调用）</span>
+        <input value="/zb" style="height: 40px; padding: 0 12px; border: 1px solid #DCDCD8; border-radius: 8px; font-size: 13px">
+      </label>
+
+      <label style="padding: 16px; background: #FFFFFF; border: 1px solid #E7E7E4; border-radius: 12px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-weight: 600">本次修改说明</span>
+        <input placeholder="例如：增加量化要求（保存版本时记录）" style="height: 40px; padding: 0 12px; border: 1px solid #DCDCD8; border-radius: 8px; font-size: 13px">
+      </label>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { t: { name: '{{姓名}}', style: '{{风格}}', points: '{{工作要点}}', braces: '{{ }}', clip: '{{@剪贴板}}', sel: '{{@选中文本}}', today: '{{@今天}}', snip: '{{>片段}}' } };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>插件：一键收藏</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter,'Noto Sans SC',system-ui,sans-serif;color:#18181B;background:#FFFFFF}
+a{color:#3B5BDB}a:hover{color:#2F4AB8}
+button,input,select,textarea{font-family:inherit}
+</style>
+</helmet>
+<div style="min-height: 900px; display: flex; flex-direction: column; background: #FFFFFF; font-size: 14px">
+  <div style="display: flex; align-items: center; gap: 10px; padding: 10px 24px; background: #F1F1EF; border-bottom: 1px solid #E7E7E4; font-size: 12px; color: #52525B">
+    <span style="padding: 2px 8px; border-radius: 6px; background: #FFFFFF; border: 1px solid #DCDCD8">示意</span>
+    任意网页：社区帖子、AI 对话记录、文档中看到好用的提示词
+  </div>
+
+  <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 32px; padding: 40px 48px">
+    <article style="flex: 999 1 520px; min-width: 0; max-width: 760px; display: flex; flex-direction: column; gap: 14px; color: #3F3F46; line-height: 1.8">
+      <h1 style="margin: 0; font-size: 24px; color: #18181B">分享一个我每天都在用的提示词</h1>
+      <div style="font-size: 13px; color: #63636B">某社区 · 3 天前</div>
+      <p style="margin: 0">最近写产品文案效率提升很多，主要靠下面这段：</p>
+      <div style="position: relative">
+        <p style="margin: 0; padding: 14px 16px; border-radius: 10px; background: #DBEAFE; color: #1E3A8A">你是一名资深电商文案。请为「降噪蓝牙耳机」写 5 条小红书风格的标题，每条不超过 20 字，突出「续航 40 小时」这个卖点，语气活泼，带 1–2 个话题标签。</p>
+        <div role="menu" aria-label="右键菜单" style="position: absolute; left: 58%; top: 70%; width: 220px; padding: 6px; border: 1px solid #DCDCD8; border-radius: 10px; background: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,0.15); font-size: 13px; color: #3F3F46">
+          <div role="menuitem" style="padding: 8px 10px">复制</div>
+          <div role="menuitem" style="padding: 8px 10px">搜索</div>
+          <div style="height: 1px; background: #EFEFEC; margin: 4px 0"></div>
+          <div role="menuitem" style="padding: 8px 10px; border-radius: 6px; background: #EEF1FC; color: #2F4AB8; font-weight: 600">保存到 Promptory　⌘⇧S</div>
+        </div>
+      </div>
+      <p style="margin: 64px 0 0">换成你自己的产品和卖点就能直接用。</p>
+    </article>
+
+    <aside role="dialog" aria-label="保存到 Promptory" style="flex: 1 1 380px; min-width: 0; max-width: 440px; align-self: flex-start; border: 1px solid #DCDCD8; border-radius: 16px; background: #FFFFFF; box-shadow: 0 16px 48px rgba(0,0,0,0.16); overflow: hidden">
+      <div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px; border-bottom: 1px solid #EFEFEC">
+        <div style="width: 20px; height: 20px; border-radius: 6px; background: #18181B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px">P</div>
+        <span style="font-weight: 700">保存提示词</span>
+        <span style="margin-left: auto; font-size: 12px; color: #63636B">已记录来源网址</span>
+      </div>
+      <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px">
+        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #63636B">标题（已自动生成，可修改）
+          <input value="小红书标题生成" style="height: 40px; padding: 0 10px; border: 1px solid #DCDCD8; border-radius: 8px; font-size: 14px; color: #18181B"></label>
+
+        <div style="padding: 12px; border-radius: 10px; background: #FFFBEB; border: 1px solid #FDE68A; display: flex; flex-direction: column; gap: 8px">
+          <div style="font-size: 13px; font-weight: 600; color: #854D0E">发现 2 处可替换内容，转为变量？</div>
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #3F3F46"><input type="checkbox" checked style="width: 18px; height: 18px">「降噪蓝牙耳机」→ <b style="color: #854D0E">{{t.product}}</b></label>
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #3F3F46"><input type="checkbox" checked style="width: 18px; height: 18px">「续航 40 小时」→ <b style="color: #854D0E">{{t.point}}</b></label>
+        </div>
+
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <label style="flex: 1 1 140px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #63636B">放入
+            <select style="height: 38px; padding: 0 8px; border: 1px solid #DCDCD8; border-radius: 8px; background: #FFFFFF; font-size: 13px"><option>收件箱（稍后整理）</option><option>营销文案</option></select></label>
+          <div style="flex: 1 1 140px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #63636B">建议标签
+            <div style="display: flex; gap: 6px; flex-wrap: wrap; padding-top: 6px">
+              <span style="padding: 3px 8px; border-radius: 6px; background: #F1F1EF; font-size: 12px; color: #3F3F46">#营销</span>
+              <span style="padding: 3px 8px; border-radius: 6px; background: #F1F1EF; font-size: 12px; color: #3F3F46">#小红书</span>
+            </div></div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid #EFEFEC; background: #FAFAF9">
+        <button style="height: 44px; flex: 1; border: 1px solid #DCDCD8; border-radius: 10px; background: #FFFFFF; font-size: 14px; cursor: pointer">保存后编辑</button>
+        <button style="height: 44px; flex: 1; border: none; border-radius: 10px; background: #3B5BDB; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer">保存 ↵</button>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { t: { product: '{{产品}}', point: '{{卖点}}' } };
+  }
+}
+</script>
+</body>
+</html>
